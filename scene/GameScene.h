@@ -61,4 +61,12 @@ private: // メンバ変数
 	Model* modelStage_ = nullptr;
 	WorldTransform worldTranceformStage_;
 
+
+	//プレイヤー
+	uint32_t textureHandlePlayer_ = 0;
+	Model* modelPlayer_ = nullptr;
+	WorldTransform worldTranceformPlayer_;
+
+	void PlayerUpdate();
+
 };

@@ -14,6 +14,7 @@ GameScene::~GameScene() {
 
 	delete spriteBG_;
 	delete modelStage_;
+	delete modelPlayer_;
 
 }
 
@@ -47,9 +48,53 @@ void GameScene::Initialize() {
 	    worldTranceformStage_.translation_);
 
 	worldTranceformStage_.TransferMatrix();
+
+	//プレイヤー
+	textureHandlePlayer_ = TextureManager::Load("player.png");
+	modelPlayer_ = Model::Create();
+	worldTranceformPlayer_.scale_ = {0.5f, 0.5f, 0.5f};
+	worldTranceformPlayer_.Initialize();
+	
+	
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+	PlayerUpdate();
+
+}
+
+//プレイヤー更新
+void GameScene::PlayerUpdate() {
+	worldTranceformPlayer_.matWorld_ = MakeAffineMatrix(
+	    worldTranceformPlayer_.scale_, worldTranceformPlayer_.rotation_,
+	    worldTranceformPlayer_.translation_);
+
+	worldTranceformPlayer_.TransferMatrix();
+
+
+	//移動
+
+	//右移動
+	if (input_->PushKey(DIK_RIGHT)) {
+		worldTranceformPlayer_.translation_.x += 0.1f;
+	}
+
+	//左移動
+	if (input_->PushKey(DIK_LEFT)) {
+		worldTranceformPlayer_.translation_.x -= 0.1f;
+	}
+
+	if (worldTranceformPlayer_.translation_.x > 4) {
+		worldTranceformPlayer_.translation_.x = 4;
+	}
+
+	if (worldTranceformPlayer_.translation_.x < -4) {
+		worldTranceformPlayer_.translation_.x = -4;
+	}
+
+}
+
 
 void GameScene::Draw() {
 
@@ -80,7 +125,11 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+	//ステージ
 	modelStage_->Draw(worldTranceformStage_, viewProjection_, textureHandleStage_);
+
+	//プレイヤー
+	modelPlayer_->Draw(worldTranceformPlayer_, viewProjection_, textureHandlePlayer_);
 
 
 	// 3Dオブジェクト描画後処理
