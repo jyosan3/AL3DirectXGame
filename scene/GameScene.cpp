@@ -1,16 +1,52 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include"MathUtilityForText.h"
 
-GameScene::GameScene() {}
+//コンストラクタ
+GameScene::GameScene() {
 
-GameScene::~GameScene() {}
+}
 
+
+//デストラクタ
+GameScene::~GameScene() {
+
+	delete spriteBG_;
+	delete modelStage_;
+
+}
+
+//初期化
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	//背景
+	textureHandleBG_ = TextureManager::Load("bg.jpg");
+	spriteBG_ = Sprite::Create(textureHandleBG_, {0, 0});
+
+	//ビュープロジェクションの初期化
+	viewProjection_.translation_.y = 1;
+	viewProjection_.translation_.z = -6;
+	viewProjection_.Initialize();
+
+	//ステージ
+	textureHandleStage_ = TextureManager::Load("stage.jpg");
+	modelStage_ = Model::Create();
+	worldTranceformStage_.Initialize();
+
+	//行列変換
+	worldTranceformStage_.translation_ = {0, -1.5f, 0};
+	worldTranceformStage_.scale_ = {4.5f, 1, 40};
+	worldTranceformStage_.matWorld_ = MakeAffineMatrix(
+	    worldTranceformStage_.scale_, 
+		worldTranceformStage_.rotation_,
+	    worldTranceformStage_.translation_);
+
+	worldTranceformStage_.TransferMatrix();
 }
 
 void GameScene::Update() {}
@@ -28,6 +64,8 @@ void GameScene::Draw() {
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
 
+	spriteBG_->Draw();
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -41,6 +79,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	modelStage_->Draw(worldTranceformStage_, viewProjection_, textureHandleStage_);
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
