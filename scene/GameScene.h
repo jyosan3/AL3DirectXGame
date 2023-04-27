@@ -59,14 +59,25 @@ private: // メンバ変数
 	
 	uint32_t textureHandleStage_ = 0;
 	Model* modelStage_ = nullptr;
-	WorldTransform worldTranceformStage_;
+	WorldTransform worldTransformStage_;
 
 
 	//プレイヤー
 	uint32_t textureHandlePlayer_ = 0;
 	Model* modelPlayer_ = nullptr;
-	WorldTransform worldTranceformPlayer_;
+	WorldTransform worldTransformPlayer_;
 
 	void PlayerUpdate();
+
+	//ビーム
+	uint32_t textureHandleBeam_ = 0;
+	Model* modelBeam_ = nullptr;
+	WorldTransform worldTransformBeam_;
+
+	int beamFlag_ = 0;
+
+	void BeamUpdate();
+	void BeamMove();
+	void BeamBorn();
 
 };
