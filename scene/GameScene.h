@@ -80,4 +80,16 @@ private: // メンバ変数
 	void BeamMove();
 	void BeamBorn();
 
+
+	//エネミー
+	uint32_t textureHandleEnemy_ = 0;
+	Model* modelEnemy_ = nullptr;
+	WorldTransform worldTransformEnemy_;
+
+	void EnemyUpdate();
+	void EnemyMove();
+	void EnemyBorn();
+
+	int enemyFlag_ = 0;
+
 };
