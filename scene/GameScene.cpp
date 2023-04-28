@@ -178,14 +178,15 @@ void GameScene::EnemyMove() {
 }
 
 void GameScene::EnemyBorn() {
-	if (enemyFlag_ == 0 ) {
-		enemyFlag_ = 1;
-		//乱数でX座標の指定
-		int x = rand() % 80;
-		float x2 = (float)x / 10 - 4;
-		worldTransformEnemy_.translation_.x = x2;
-		worldTransformEnemy_.translation_.z = 40; 
-	}
+
+	if (enemyFlag_ == 1)return;
+	enemyFlag_ = 1;
+	//乱数でX座標の指定
+	int x = rand() % 80;
+	float x2 = (float)x / 10 - 4;
+	worldTransformEnemy_.translation_.x = x2;
+	worldTransformEnemy_.translation_.z = 40; 
+	
 }
 
 
