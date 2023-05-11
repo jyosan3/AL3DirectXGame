@@ -70,9 +70,13 @@ void GameScene::Initialize() {
 	worldTransformEnemy_.scale_ = {0.5f, 0.5f, 0.5f};
 	worldTransformEnemy_.Initialize();
 
-
+	
 	//乱数
 	srand((unsigned int)time(NULL));
+
+	//デバックテキスト
+	debugText_ = DebugText::GetInstance();
+	debugText_->Initialize();
 
 }
 
@@ -87,6 +91,11 @@ void GameScene::Update() {
 
 	//エネミー
 	EnemyUpdate();
+
+
+	//衝突判定
+	Collision();
+
 }
 
 //プレイヤー更新
@@ -189,6 +198,40 @@ void GameScene::EnemyBorn() {
 	
 }
 
+void GameScene::Collision() {
+	//衝突判定（プレイヤーと敵）
+	CollisionPlayerEnemy();
+	CollisionBeamEnemy();
+}
+
+void GameScene::CollisionPlayerEnemy() {
+	//敵がいれば
+	if (enemyFlag_ == 1) {
+	// 差を求める
+	float dx = abs(worldTransformPlayer_.translation_.x - worldTransformEnemy_.translation_.x);
+	float dz = abs(worldTransformPlayer_.translation_.z - worldTransformEnemy_.translation_.z);
+
+		if (dx < 1 && dz < 1) {
+			enemyFlag_ = 0;
+			playerLife_ -= 1;
+		}
+	}
+}
+void GameScene::CollisionBeamEnemy() {
+	// 敵がいれば
+	if (beamFlag_ == 1) {
+		// 差を求める
+		float dx = abs(worldTransformBeam_.translation_.x - worldTransformEnemy_.translation_.x);
+		float dz = abs(worldTransformBeam_.translation_.z - worldTransformEnemy_.translation_.z);
+
+		if (dx < 1 && dz < 1) {
+			enemyFlag_ = 0;
+			beamFlag_ = 0;
+			gameScore_ += 1;
+		}
+	}
+}
+
 
 void GameScene::Draw() {
 
@@ -198,6 +241,7 @@ void GameScene::Draw() {
 #pragma region 背景スプライト描画
 	// 背景スプライト描画前処理
 	Sprite::PreDraw(commandList);
+
 
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
@@ -243,6 +287,18 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
+
+	// デバックテキスト
+	
+	char str[100];
+	sprintf_s(str, "SCORE %d", gameScore_);
+	debugText_->Print(str, 200,10, 2);
+
+	
+	sprintf_s(str, "LIFE %d", playerLife_);
+	debugText_->Print(str, 1000, 10, 2);
+
+	debugText_->DrawAll();
 
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる

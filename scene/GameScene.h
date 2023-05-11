@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "DebugText.h"
 
 /// <summary>
 /// ゲームシーン
@@ -91,5 +92,17 @@ private: // メンバ変数
 	void EnemyBorn();
 
 	int enemyFlag_ = 0;
+
+	//衝突判定
+
+	void Collision();
+	void CollisionPlayerEnemy();
+
+	void CollisionBeamEnemy();
+
+	DebugText* debugText_ = nullptr;
+
+	int gameScore_ = 0;
+	int playerLife_ = 3;
 
 };
