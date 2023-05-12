@@ -41,6 +41,17 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+
+private:
+
+	void GamePlayUpdate();
+	void GamePlayDraw3D();
+	void GamePlay2DBack();
+	void GamePlay2DNear();
+
+	void TitleUpdate();
+	void TitleDraw2DNear();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -104,5 +115,8 @@ private: // メンバ変数
 
 	int gameScore_ = 0;
 	int playerLife_ = 3;
+
+
+	int sceneMode_ = 0;
 
 };
