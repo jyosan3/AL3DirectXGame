@@ -52,6 +52,11 @@ private:
 	void TitleUpdate();
 	void TitleDraw2DNear();
 
+	void GameOverUpdate();
+	void GameOverDraw2DNear();
+
+	void GamePlayStart();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -117,6 +122,17 @@ private: // メンバ変数
 	int playerLife_ = 3;
 
 
-	int sceneMode_ = 0;
+	int sceneMode_ = 1;
+
+	uint32_t textureHandleTitle_ = 0;
+	Sprite* spriteTitle_ = nullptr;
+
+	uint32_t textureHandleEnter_ = 0;
+	Sprite* spriteEnter_ = nullptr;
+
+	int gameTimer_ = 0;
+
+	uint32_t textureHandleGameOver_ = 0;
+	Sprite* spriteGameOver_ = nullptr;
 
 };
