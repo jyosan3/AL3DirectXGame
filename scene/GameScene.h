@@ -89,9 +89,11 @@ private: // メンバ変数
 	//ビーム
 	uint32_t textureHandleBeam_ = 0;
 	Model* modelBeam_ = nullptr;
-	WorldTransform worldTransformBeam_;
+	WorldTransform worldTransformBeam_[10];
 
-	int beamFlag_ = 0;
+	int beamFlag_[10] = {};
+
+	int beamTimer_ = 0;
 
 	void BeamUpdate();
 	void BeamMove();
@@ -101,13 +103,15 @@ private: // メンバ変数
 	//エネミー
 	uint32_t textureHandleEnemy_ = 0;
 	Model* modelEnemy_ = nullptr;
-	WorldTransform worldTransformEnemy_;
+	WorldTransform worldTransformEnemy_[10];
 
 	void EnemyUpdate();
 	void EnemyMove();
 	void EnemyBorn();
 
-	int enemyFlag_ = 0;
+	int enemyFlag_[10] = {};
+
+	float enemySpeed_[10] = {};
 
 	//衝突判定
 
