@@ -139,4 +139,11 @@ private: // メンバ変数
 	uint32_t textureHandleGameOver_ = 0;
 	Sprite* spriteGameOver_ = nullptr;
 
+	uint32_t soundDataHandleTitleBGM_ = 0;
+	uint32_t soundDataHandleGamePlayBGM_ = 0;
+	uint32_t soundDataHandleGameOverBGM_ = 0;
+	uint32_t soundDataHandleEnemyHitSE_ = 0;
+	uint32_t soundDataHandlePlayerHitSE_ = 0;
+	uint32_t voiceHandleBGM_ = 0;
+
 };
