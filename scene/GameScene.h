@@ -57,6 +57,10 @@ private:
 
 	void GamePlayStart();
 
+	void StageUpdate();
+
+	void EnemyJump();
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -74,9 +78,10 @@ private: // メンバ変数
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 	
+	//ステージ
 	uint32_t textureHandleStage_ = 0;
-	Model* modelStage_ = nullptr;
-	WorldTransform worldTransformStage_;
+	Model* modelStage_ = 0;
+	WorldTransform worldTransformStage_[20];
 
 
 	//プレイヤー
@@ -112,6 +117,8 @@ private: // メンバ変数
 	int enemyFlag_[10] = {};
 
 	float enemySpeed_[10] = {};
+
+	float enemyJumpSpeed_[10] = {};
 
 	//衝突判定
 
