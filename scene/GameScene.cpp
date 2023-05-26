@@ -134,6 +134,7 @@ void GameScene::GamePlayUpdate() {
 	EnemyUpdate();  // エネミー
 	Collision();    // 衝突判定
 	StageUpdate();
+	gameTimer_++;
 }
 
 
@@ -144,7 +145,6 @@ void GameScene::StageUpdate() {
 
 		if (worldTransformStage_[i].translation_.z < -5) {
 			worldTransformStage_[i].translation_.z += 40;
-			worldTransformStage_[i].translation_.z += gameTimer_/100.0f;
 		}
 
 		worldTransformStage_[i].matWorld_ = MakeAffineMatrix(
@@ -264,10 +264,10 @@ void GameScene::EnemyMove() {
 		if (enemyFlag_[e] == 0)continue;
 
 		// タイマーにより速度を設定
-		//worldTransformEnemy_[e].translation_.z -= 0.1f;
+		worldTransformEnemy_[e].translation_.z -= 0.1f;
 		worldTransformEnemy_[e].translation_.z -= gameTimer_ / 1000.0f;
-		//worldTransformEnemy_[e].rotation_.x -= 0.2f;
-		worldTransformEnemy_[e].rotation_.x -= gameTimer_/1000.0f;
+		worldTransformEnemy_[e].rotation_.x -= 0.2f;
+		worldTransformEnemy_[e].rotation_.x -= gameTimer_/10000.0f;
 		
 		worldTransformEnemy_[e].translation_.x += enemySpeed_[e];
 
@@ -418,7 +418,7 @@ void GameScene::GamePlay2DNear() {
 void GameScene::TitleUpdate() 
 {
 	
-	gameTimer_ += 1; 
+	gameTimer_ ++; 
 
 	if (input_->TriggerKey(DIK_RETURN)) 
 	{
