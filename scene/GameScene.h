@@ -48,6 +48,7 @@ private:
 	void GamePlayDraw3D();
 	void GamePlay2DBack();
 	void GamePlay2DNear();
+	void DrawScore();
 
 	void TitleUpdate();
 	void TitleDraw2DNear();
@@ -90,6 +91,8 @@ private: // メンバ変数
 	WorldTransform worldTransformPlayer_;
 
 	void PlayerUpdate();
+
+	int playerTimer_ = 0;
 
 	//ビーム
 	uint32_t textureHandleBeam_ = 0;
@@ -152,5 +155,18 @@ private: // メンバ変数
 	uint32_t soundDataHandleEnemyHitSE_ = 0;
 	uint32_t soundDataHandlePlayerHitSE_ = 0;
 	uint32_t voiceHandleBGM_ = 0;
+
+
+	//スコア数値（スプライト）
+	uint32_t textureHandleNumber_ = 0;
+	Sprite* spriteNumber_[5] = {};
+
+	//スコア文字
+	uint32_t textureHandleScore_ = 0;
+	Sprite* spriteScore_ = nullptr;
+
+	//プレイヤーライフ（スプライト）
+	/*uint32_t textureHandlePlayer_ = 0;*/
+	Sprite* spriteLife_[3] = {};
 
 };
