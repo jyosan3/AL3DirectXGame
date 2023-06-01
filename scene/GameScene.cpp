@@ -64,9 +64,10 @@ void GameScene::Initialize() {
 	}
 	//プレイヤー
 	textureHandlePlayer_ = TextureManager::Load("player.png");
-	modelPlayer_ = Model::Create();
+	modelPlayer_ = Model::CreateFromOBJ("chr_sword");
 	worldTransformPlayer_.scale_ = {0.5f, 0.5f, 0.5f};
 	worldTransformPlayer_.Initialize();
+	worldTransformPlayer_.translation_.y = -0.5f;
 	
 	//ビーム
 	textureHandleBeam_ = TextureManager::Load("beam.png");
@@ -415,7 +416,7 @@ void GameScene::GamePlayDraw3D() {
 	}
 	// プレイヤー
 	if (playerTimer_ % 4 < 2) {
-		modelPlayer_->Draw(worldTransformPlayer_, viewProjection_, textureHandlePlayer_);
+		modelPlayer_->Draw(worldTransformPlayer_, viewProjection_);
 	}
 	// ビーム
 	for (int i = 0; i < 10; i++) {
@@ -518,7 +519,7 @@ void GameScene::GameOverDraw2DNear()
 void GameScene::GamePlayStart() 
 {
 	//プレイヤー
-	worldTransformPlayer_.translation_ = {0, 0, 0};
+	worldTransformPlayer_.translation_ = {0, -0.5, 0};
 
 
 	worldTransformPlayer_.matWorld_ = MakeAffineMatrix(
