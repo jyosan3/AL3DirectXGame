@@ -4,16 +4,37 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	//各クラスの削除
+	delete stage_;
+	
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	//各クラスの作成
+	
+	//カメラ初期化
+	viewProjection_.translation_.y = 1;
+	viewProjection_.translation_.z = -6;
+	viewProjection_.Initialize();
+	
+	//ステージ初期化
+	stage_ = new Stage();
+	stage_->Initialize(viewProjection_);
+
+	
+
 }
 
-void GameScene::Update() {}
+void GameScene::Update() { 
+	//ステージ更新
+	stage_->Update(); 
+}
 
 void GameScene::Draw() {
 
@@ -28,6 +49,9 @@ void GameScene::Draw() {
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
 
+	stage_->Draw2DFar();
+
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -41,6 +65,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	stage_->Draw3D();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

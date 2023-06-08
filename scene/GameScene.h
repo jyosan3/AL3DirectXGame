@@ -9,6 +9,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include"Stage.h"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -48,4 +50,11 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	 
+	//ステージ
+	Stage* stage_ = nullptr;
+
+	//カメラ
+	ViewProjection viewProjection_;
+
 };
