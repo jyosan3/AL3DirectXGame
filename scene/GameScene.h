@@ -10,6 +10,7 @@
 #include "WorldTransform.h"
 
 #include"Stage.h"
+#include "Player.h"
 
 /// <summary>
 /// ゲームシーン
@@ -56,5 +57,8 @@ private: // メンバ変数
 
 	//カメラ
 	ViewProjection viewProjection_;
+
+	//プレイヤー
+	Player* player_ = nullptr;
 
 };

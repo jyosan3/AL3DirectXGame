@@ -7,7 +7,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	//各クラスの削除
 	delete stage_;
-	
+	delete player_;
 }
 
 void GameScene::Initialize() {
@@ -27,13 +27,16 @@ void GameScene::Initialize() {
 	stage_ = new Stage();
 	stage_->Initialize(viewProjection_);
 
-	
 
+	//プレイヤー
+	player_ = new Player();
+	player_->Initialize(viewProjection_);
 }
 
 void GameScene::Update() { 
 	//ステージ更新
 	stage_->Update(); 
+	player_->Update();
 }
 
 void GameScene::Draw() {
@@ -67,6 +70,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	stage_->Draw3D();
+	player_->Draw3D();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
