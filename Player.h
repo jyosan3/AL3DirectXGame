@@ -23,6 +23,11 @@ public : // コンストラクタ
 	// 2D背景描画
 	void Draw3D();
 
+	
+	float GetX() { return worldTransformPlayer_.translation_.x; }
+	float GetY() { return worldTransformPlayer_.translation_.y; }
+	float GetZ() { return worldTransformPlayer_.translation_.z; }
+
 private:
 	uint32_t textureHandlePlayer_ = 0;
 	Model* modelPlayer_ = nullptr;
@@ -32,4 +37,5 @@ private:
 	ViewProjection viewProjection_;
 
 	Input* input_ = nullptr;
+
 };
