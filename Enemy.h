@@ -8,33 +8,42 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "MathUtilityForText.h"
+#include "Player.h"
+#include <time.h>
 
-class Player {
 
-public : // コンストラクタ
-	Player();
+class Enemy {
+
+public:
+
+	Enemy();
 	// デストラクタ
-	~Player();
+	~Enemy();
 
 	// 初期化
 	void Initialize(ViewProjection view);
 	// 更新
 	void Update();
-	// 2D背景描画
+	// 3D描画
 	void Draw3D();
 
-	
-	float GetX() { return worldTransformPlayer_.translation_.x; }
-	float GetZ() { return worldTransformPlayer_.translation_.z; }
+	void Move();
+
+	void Born();
 
 private:
-	uint32_t textureHandlePlayer_ = 0;
-	Model* modelPlayer_ = nullptr;
-	WorldTransform worldTransformPlayer_;
+
+	uint32_t textureHandleEnemy_ = 0;
+	Model* modelEnemy_ = nullptr;
+	WorldTransform worldTransformEnemy_;
 
 	// カメラ
 	ViewProjection viewProjection_;
 
 	Input* input_ = nullptr;
 
+	int enemyFlag_ = 0;
+
+	
 };
+

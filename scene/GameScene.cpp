@@ -9,6 +9,7 @@ GameScene::~GameScene() {
 	delete stage_;
 	delete player_;
 	delete beam_;
+	delete enemy_;
 }
 
 void GameScene::Initialize() {
@@ -37,6 +38,10 @@ void GameScene::Initialize() {
 	beam_ = new Beam();
 	beam_->Initialize(viewProjection_,player_);
 
+
+	//エネミー
+	enemy_ = new Enemy();
+	enemy_->Initialize(viewProjection_);
 }
 
 void GameScene::Update() { 
@@ -44,6 +49,7 @@ void GameScene::Update() {
 	stage_->Update(); 
 	player_->Update();
 	beam_->Update();
+	enemy_->Update();
 }
 
 void GameScene::Draw() {
@@ -79,6 +85,7 @@ void GameScene::Draw() {
 	stage_->Draw3D();
 	player_->Draw3D();
 	beam_->Draw3D();
+	enemy_->Draw3D();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
