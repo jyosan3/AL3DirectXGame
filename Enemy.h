@@ -31,6 +31,12 @@ public:
 
 	void Born();
 
+	float GetX() { return worldTransformEnemy_.translation_.x; }
+	float GetZ() { return worldTransformEnemy_.translation_.z; }
+	int GetFlag() { return enemyFlag_; }
+
+	void Hit() {enemyFlag_ = 0;	}
+
 private:
 
 	uint32_t textureHandleEnemy_ = 0;

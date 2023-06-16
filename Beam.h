@@ -28,6 +28,11 @@ public: // コンストラクタ
 
 	void Born();
 
+	float GetX() { return worldTransformBeam_.translation_.x; }
+	float GetZ() { return worldTransformBeam_.translation_.z; }
+	int GetFlag() { return beamFlag_; }
+
+	void Hit() { beamFlag_ = 0; }
 	
 private:
 	uint32_t textureHandleBeam_ = 0;

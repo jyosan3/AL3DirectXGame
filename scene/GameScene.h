@@ -13,6 +13,7 @@
 #include "Player.h"
 #include"Beam.h"
 #include"Enemy.h"
+#include "DebugText.h"
 
 /// <summary>
 /// ゲームシーン
@@ -45,6 +46,11 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+private:
+	void CollisionBeamEnemy();
+	void CollisionPlayerEnemy();
+
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -68,5 +74,12 @@ private: // メンバ変数
 
 	//エネミー
 	Enemy* enemy_ = nullptr;
+
+	//デバックテキスト
+	DebugText* debugText_ = nullptr;
+
+	int gameScore_ = 0;
+	
+	int playerLife_ = 3;
 
 };

@@ -42,6 +42,10 @@ void GameScene::Initialize() {
 	//エネミー
 	enemy_ = new Enemy();
 	enemy_->Initialize(viewProjection_);
+
+
+	debugText_ = DebugText::GetInstance();
+	debugText_->Initialize();
 }
 
 void GameScene::Update() { 
@@ -50,6 +54,39 @@ void GameScene::Update() {
 	player_->Update();
 	beam_->Update();
 	enemy_->Update();
+	CollisionBeamEnemy();
+	CollisionPlayerEnemy();
+}
+
+void GameScene::CollisionBeamEnemy() {
+
+	if (beam_->GetFlag() == 1) {
+		// 差を求める
+		float dx = abs(beam_->GetX() - enemy_->GetX());
+		float dz = abs(beam_->GetZ() - enemy_->GetZ());
+
+		if (dx < 1 && dz < 1) {
+			enemy_->Hit();
+			beam_->Hit();
+			gameScore_ += 1;
+		}
+	}
+
+
+}
+
+void GameScene::CollisionPlayerEnemy() {
+
+	if (enemy_->GetFlag() == 1) {
+		float dx = abs(player_->GetX() - enemy_->GetX());
+		float dz = abs(player_->GetZ() - enemy_->GetZ());
+		if (dx < 1 && dz < 1) {
+			enemy_->Hit();
+			playerLife_ -= 1;
+		}
+	
+	}
+
 }
 
 void GameScene::Draw() {
@@ -98,6 +135,18 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+
+
+	//ゲームスコア
+
+	char str[100];
+	sprintf_s(str, "SCORE %d", gameScore_);
+	debugText_->Print(str, 200, 10, 2);
+
+	sprintf_s(str, "LIFE %d", playerLife_);
+	debugText_->Print(str, 1000, 10, 2);
+
+	debugText_->DrawAll();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

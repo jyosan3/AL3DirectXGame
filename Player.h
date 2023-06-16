@@ -20,10 +20,9 @@ public : // コンストラクタ
 	void Initialize(ViewProjection view);
 	// 更新
 	void Update();
-	// 2D背景描画
+	// 3D描画
 	void Draw3D();
 
-	
 	float GetX() { return worldTransformPlayer_.translation_.x; }
 	float GetZ() { return worldTransformPlayer_.translation_.z; }
 
