@@ -14,6 +14,7 @@
 #include"Beam.h"
 #include"Enemy.h"
 #include "DebugText.h"
+#include "GamePlay.h"
 
 /// <summary>
 /// ゲームシーン
@@ -46,11 +47,6 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
-private:
-	void CollisionBeamEnemy();
-	void CollisionPlayerEnemy();
-
-
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -60,26 +56,10 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	 
-	//ステージ
-	Stage* stage_ = nullptr;
+	GamePlay* gamePlay_ = nullptr;
 
-	//カメラ
 	ViewProjection viewProjection_;
 
-	//プレイヤー
-	Player* player_ = nullptr;
-
-	//ビーム
-	Beam* beam_ = nullptr;
-
-	//エネミー
-	Enemy* enemy_ = nullptr;
-
-	//デバックテキスト
-	DebugText* debugText_ = nullptr;
-
-	int gameScore_ = 0;
-	
-	int playerLife_ = 3;
+	int sceneMode_ = 0;
 
 };
