@@ -23,6 +23,8 @@ public : // コンストラクタ
 	// 3D描画
 	void Draw3D();
 
+	void Start();
+
 	float GetX() { return worldTransformPlayer_.translation_.x; }
 	float GetZ() { return worldTransformPlayer_.translation_.z; }
 

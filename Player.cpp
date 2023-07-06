@@ -23,6 +23,18 @@ void Player::Initialize(ViewProjection view) {
 
 }
 
+void Player::Start() {
+
+	worldTransformPlayer_.translation_ = {0, 0, 0};
+
+	worldTransformPlayer_.matWorld_ = MakeAffineMatrix(
+	    worldTransformPlayer_.scale_, worldTransformPlayer_.rotation_,
+	    worldTransformPlayer_.translation_);
+
+	worldTransformPlayer_.TransferMatrix();
+
+}
+
 void Player::Update() {
 	//変換行列を更新
 	worldTransformPlayer_.matWorld_ = MakeAffineMatrix(

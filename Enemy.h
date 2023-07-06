@@ -31,6 +31,8 @@ public:
 
 	void Born();
 
+	void Start();
+
 	float GetX() { return worldTransformEnemy_.translation_.x; }
 	float GetZ() { return worldTransformEnemy_.translation_.z; }
 	int GetFlag() { return enemyFlag_; }

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "Audio.h"
 #include "DirectXCommon.h"
@@ -24,13 +24,14 @@ public:
 	~GamePlay();
 
 	void Initialize(ViewProjection view);
-	void Update();
+	int Update();
 	void Draw();
 	void Draw2DFar();
 	void Draw3D();
 	void Draw2DNear();
 	void CollisionPlayerEnemy();
 	void CollisionBeamEnemy();
+	void Start();
 
 
 private:
@@ -39,6 +40,7 @@ private:
 	Player* player_ = nullptr;
 	Beam*   beam_   = nullptr;
 	Enemy*  enemy_  = nullptr;
+
 
 	ViewProjection viewProjection_;
 

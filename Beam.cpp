@@ -25,6 +25,12 @@ void Beam::Initialize(ViewProjection view,Player* player) {
 
 }
 
+void Beam::Start() {
+
+	beamFlag_ = 0;
+
+}
+
 void Beam::Update() {
 	//移動
 	Move();

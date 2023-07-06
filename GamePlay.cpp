@@ -1,4 +1,4 @@
-﻿#include"GamePlay.h"
+#include"GamePlay.h"
 
 GamePlay::GamePlay() {}
 
@@ -32,15 +32,39 @@ void GamePlay::Initialize(ViewProjection view) {
 	debugText_ = DebugText::GetInstance();
 	debugText_->Initialize();
 	
+
+
 }
 
-void GamePlay::Update() {
+int GamePlay::Update() {
 	stage_->Update();
 	player_->Update();
 	beam_->Update();
 	enemy_->Update();
 	CollisionBeamEnemy();
 	CollisionPlayerEnemy();
+	
+
+	if (playerLife_ <= 0) {
+		return 2;
+	}
+	return 0;
+}
+
+void GamePlay::Start() {
+
+	player_->Start();
+
+	enemy_->Start();
+
+	beam_->Start();
+
+	// プレイヤーライフ
+	playerLife_ = 3;
+
+	// ゲームスコア
+	gameScore_ = 0;
+
 }
 
 void GamePlay::CollisionPlayerEnemy() {

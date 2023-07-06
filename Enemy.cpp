@@ -1,4 +1,4 @@
-﻿#include "Enemy.h"
+#include "Enemy.h"
 
 Enemy::Enemy() {}
 
@@ -17,6 +17,12 @@ void Enemy::Initialize(ViewProjection view) {
 	modelEnemy_ = Model::Create();
 	worldTransformEnemy_.scale_ = {0.5f, 0.5f, 0.5f};
 	worldTransformEnemy_.Initialize();
+
+}
+
+void Enemy::Start() {
+
+	enemyFlag_ = 0;
 
 }
 

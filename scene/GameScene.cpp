@@ -6,6 +6,8 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete gamePlay_;
+	delete title_;
+	delete gameOver_;
 }
 
 void GameScene::Initialize() {
@@ -24,15 +26,38 @@ void GameScene::Initialize() {
 	gamePlay_ = new GamePlay();
 	gamePlay_->Initialize(viewProjection_);
 
+	title_ = new Title();
+	title_ -> Initialize();
+
+	gameOver_ = new GameOver();
+	gameOver_->Initialize();
 }
 
-void GameScene::Update() { 
-//	//ステージ更新
-	
+void GameScene::Update() {
+
+	int oldSceneMode_ = sceneMode_;
+
+	//ステージ更新
 	switch (sceneMode_) {
 	case 0:
-		gamePlay_->Update();
+		sceneMode_ = gamePlay_->Update();
 	break;
+	case 1:
+		sceneMode_ = title_->Update();
+	break;
+	case 2:
+		sceneMode_ = gameOver_->Update();
+	break;
+	}
+
+	if (oldSceneMode_ != sceneMode_) {
+	
+		switch (sceneMode_) {
+		case 0:
+			gamePlay_->Start();
+			break;
+	    }
+
 	}
 
 }
@@ -56,6 +81,9 @@ void GameScene::Draw() {
 	case 0:
 	gamePlay_->Draw2DFar();
 	break;
+	case 2:
+	gamePlay_->Draw2DFar();
+	break;
 	}
 	
 
@@ -77,6 +105,9 @@ void GameScene::Draw() {
 	case 0:
 	gamePlay_->Draw3D();
 	break;
+	case 2:
+	gamePlay_->Draw3D();
+	break;
 	}
 
 	// 3Dオブジェクト描画後処理
@@ -93,8 +124,15 @@ void GameScene::Draw() {
 
 	switch (sceneMode_) {
 	case 0:
-	gamePlay_->Draw2DNear();
+		gamePlay_->Draw2DNear();
 	break;
+	case 1:
+		 title_->Draw2DNear();
+	break;
+	case 2: 
+		gameOver_->Draw2DNear();
+	break;
+
 	}
 
 	

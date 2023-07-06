@@ -25,8 +25,9 @@ public: // コンストラクタ
 
 	void Move();
 
-
 	void Born();
+
+	void Start();
 
 	float GetX() { return worldTransformBeam_.translation_.x; }
 	float GetZ() { return worldTransformBeam_.translation_.z; }

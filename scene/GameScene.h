@@ -15,6 +15,8 @@
 #include"Enemy.h"
 #include "DebugText.h"
 #include "GamePlay.h"
+#include"Title.h"
+#include"GameOver.h"
 
 /// <summary>
 /// ゲームシーン
@@ -57,9 +59,11 @@ private: // メンバ変数
 	/// </summary>
 	 
 	GamePlay* gamePlay_ = nullptr;
+	Title* title_ = nullptr;
+	GameOver* gameOver_ = nullptr;
 
 	ViewProjection viewProjection_;
 
-	int sceneMode_ = 0;
+	int sceneMode_ = 1;
 
 };
