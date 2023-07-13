@@ -55,7 +55,17 @@ void Enemy::Move() {
 	if (enemyFlag_ == 1) {
 		worldTransformEnemy_.translation_.z -= 0.2f;
 		worldTransformEnemy_.rotation_.x -= 0.1f;
+		worldTransformEnemy_.translation_.x += xSpeed_;
+	
+		if (worldTransformEnemy_.translation_.x > 4) {
+			xSpeed_ = -0.1f;
+		}
+		if (worldTransformEnemy_.translation_.x < -4) {
+			xSpeed_ = 0.1f;
+		}
+	
 	}
+
 
 	if (worldTransformEnemy_.translation_.z <= -5) {
 		enemyFlag_ = 0;
@@ -65,14 +75,21 @@ void Enemy::Move() {
 
 void Enemy::Born() {
 
-	if (enemyFlag_ == 0) {
-		enemyFlag_ = 1;
-		// 乱数でX座標の指定
-		int x = rand() % 80;
-		float x2 = (float)x / 10 - 4;
-		worldTransformEnemy_.translation_.x = x2;
-		worldTransformEnemy_.translation_.z = 40; 
-	
+	if (rand() % 10 == 0) {
+		if (enemyFlag_ == 0) {
+			enemyFlag_ = 1;
+
+			if (rand() % 2 == 0){
+				xSpeed_ = 0.1f;
+			} else {
+				xSpeed_ = -0.1f;
+			}
+			// 乱数でX座標の指定
+			int x = rand() % 80;
+			float x2 = (float)x / 10 - 4;
+			worldTransformEnemy_.translation_.x = x2;
+			worldTransformEnemy_.translation_.z = 40;
+		}
 	}
 
 

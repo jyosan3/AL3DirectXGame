@@ -5,9 +5,12 @@ GamePlay::GamePlay() {}
 GamePlay::~GamePlay() {
 	delete stage_;
 	delete player_;
-	delete beam_;
-	delete enemy_; 
-
+	for (Beam* beam : beamTable_) {
+		delete beam;
+	}
+	for (Enemy* enemy : enemyTable_) {
+		delete enemy;
+	}
 }
 
 void GamePlay::Initialize(ViewProjection view) {
@@ -22,16 +25,25 @@ void GamePlay::Initialize(ViewProjection view) {
 	player_->Initialize(viewProjection_);
 
 	// ビーム
-	beam_ = new Beam();
-	beam_->Initialize(viewProjection_, player_);
 
+	for (int j = 0; j < 10; j++) {
+		beamTable_[j] = new Beam();
+	}
+	for (Beam* beam : beamTable_) {
+		beam->Initialize(viewProjection_, player_);
+	}
 	// エネミー
-	enemy_ = new Enemy();
-	enemy_->Initialize(viewProjection_);
+	for (int i = 0; i < 10; i++) {
+		enemyTable_[i] = new Enemy();
+	}
+	for (Enemy* enemy : enemyTable_) {
+		enemy->Initialize(viewProjection_);
+	}
 
 	debugText_ = DebugText::GetInstance();
 	debugText_->Initialize();
 	
+	input_ = Input::GetInstance();
 
 
 }
@@ -39,11 +51,16 @@ void GamePlay::Initialize(ViewProjection view) {
 int GamePlay::Update() {
 	stage_->Update();
 	player_->Update();
-	beam_->Update();
-	enemy_->Update();
+	for (Beam* beam : beamTable_) {
+		beam->Update();
+	}
+	for (Enemy* enemy : enemyTable_) {
+		enemy->Update();
+	}
 	CollisionBeamEnemy();
 	CollisionPlayerEnemy();
 	
+	Shot();
 
 	if (playerLife_ <= 0) {
 		return 2;
@@ -54,11 +71,14 @@ int GamePlay::Update() {
 void GamePlay::Start() {
 
 	player_->Start();
-
-	enemy_->Start();
-
-	beam_->Start();
-
+	
+	
+	for (Enemy* enemy : enemyTable_) {
+		enemy->Start();
+	}
+	for (Beam* beam : beamTable_) {
+		beam->Start();
+	}
 	// プレイヤーライフ
 	playerLife_ = 3;
 
@@ -67,29 +87,57 @@ void GamePlay::Start() {
 
 }
 
-void GamePlay::CollisionPlayerEnemy() {
+void GamePlay::Shot() {
 
-	if (enemy_->GetFlag() == 1) {
-		float dx = abs(player_->GetX() - enemy_->GetX());
-		float dz = abs(player_->GetZ() - enemy_->GetZ());
-		if (dx < 1 && dz < 1) {
-			enemy_->Hit();
-			playerLife_ -= 1;
+	if (ShotTimer_ == 0) {
+		if (input_->TriggerKey(DIK_SPACE)) {
+			for (Beam* beam : beamTable_) {
+				if (beam->GetFlag() == 0) {
+					beam->Born();
+					beam->Update();
+					ShotTimer_ = 1;
+					break;
+				}
+			}
+		}
+	} 
+	else {
+		ShotTimer_++;
+
+		if (ShotTimer_ > 10) {
+			ShotTimer_ = 0;
+		}
+	}
+}
+
+
+void GamePlay::CollisionPlayerEnemy() {
+	for (Enemy* enemy : enemyTable_) {
+		if (enemy->GetFlag() == 1) {
+			float dx = abs(player_->GetX() - enemy->GetX());
+			float dz = abs(player_->GetZ() - enemy->GetZ());
+			if (dx < 1 && dz < 1) {
+				enemy->Hit();
+				playerLife_ -= 1;
+			}
 		}
 	}
 }
 
 void GamePlay::CollisionBeamEnemy() {
+	for (Enemy* enemy : enemyTable_) {
+		for (Beam* beam : beamTable_) {
+			if (beam->GetFlag() == 1) {
+				// 差を求める
+				float dx = abs(beam->GetX() - enemy->GetX());
+				float dz = abs(beam->GetZ() - enemy->GetZ());
 
-	if (beam_->GetFlag() == 1) {
-		// 差を求める
-		float dx = abs(beam_->GetX() - enemy_->GetX());
-		float dz = abs(beam_->GetZ() - enemy_->GetZ());
-
-		if (dx < 1 && dz < 1) {
-			enemy_->Hit();
-			beam_->Hit();
-			gameScore_ += 1;
+				if (dx < 1 && dz < 1) {
+					enemy->Hit();
+					beam->Hit();
+					gameScore_ += 1;
+				}
+			}
 		}
 	}
 }
@@ -106,9 +154,12 @@ void GamePlay::Draw3D() {
 
 	stage_->Draw3D();
 	player_->Draw3D();
-	beam_->Draw3D();
-	enemy_->Draw3D();
-
+	for (Beam* beam : beamTable_) {
+		beam->Draw3D();
+	}
+	for (Enemy* enemy : enemyTable_) {
+		enemy->Draw3D();
+	}
 }
 
 void GamePlay::Draw2DNear() {

@@ -32,21 +32,23 @@ public:
 	void CollisionPlayerEnemy();
 	void CollisionBeamEnemy();
 	void Start();
-
+	void Shot();
 
 private:
 
 	Stage*  stage_  = nullptr;
 	Player* player_ = nullptr;
-	Beam*   beam_   = nullptr;
-	Enemy*  enemy_  = nullptr;
+	Beam* beamTable_[10] = {};
+	Enemy* enemyTable_[10] = {};
 
 
 	ViewProjection viewProjection_;
 
 	DebugText* debugText_ = nullptr;
 
+	int ShotTimer_ = 0;
 	int gameScore_ = 0;
 	int playerLife_ = 3;
+	Input* input_ = nullptr;
 
 };

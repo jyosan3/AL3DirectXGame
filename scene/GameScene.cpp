@@ -130,6 +130,7 @@ void GameScene::Draw() {
 		 title_->Draw2DNear();
 	break;
 	case 2: 
+		gamePlay_->Draw2DNear();
 		gameOver_->Draw2DNear();
 	break;
 

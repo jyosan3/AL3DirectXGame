@@ -51,7 +51,7 @@ private:
 	Input* input_ = nullptr;
 
 	int enemyFlag_ = 0;
-
+	float xSpeed_ = 0;
 	
 };
 
