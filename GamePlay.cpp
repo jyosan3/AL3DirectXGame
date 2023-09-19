@@ -11,6 +11,7 @@ GamePlay::~GamePlay() {
 	for (Enemy* enemy : enemyTable_) {
 		delete enemy;
 	}
+	
 }
 
 void GamePlay::Initialize(ViewProjection view) {
@@ -40,16 +41,27 @@ void GamePlay::Initialize(ViewProjection view) {
 		enemy->Initialize(viewProjection_);
 	}
 
+	
+
 	debugText_ = DebugText::GetInstance();
 	debugText_->Initialize();
 	
 	input_ = Input::GetInstance();
 
+	// サウンド
+	audio_ = Audio::GetInstance();
+	soundDataHandleBGM_ = audio_->LoadWave("Audio/Ring08.wav");
+
+	soundDataHandleEnemySE_ = audio_->LoadWave("Audio/chord.wav");
+
+	soundDataHandlePlayerSE_ = audio_->LoadWave("Audio/tada.wav");
+
+	
+
 
 }
 
 int GamePlay::Update() {
-	stage_->Update();
 	player_->Update();
 	for (Beam* beam : beamTable_) {
 		beam->Update();
@@ -57,12 +69,16 @@ int GamePlay::Update() {
 	for (Enemy* enemy : enemyTable_) {
 		enemy->Update();
 	}
+	
+
 	CollisionBeamEnemy();
 	CollisionPlayerEnemy();
 	
 	Shot();
+	
 
 	if (playerLife_ <= 0) {
+		audio_->StopWave(voiceHandleBGM_);
 		return 2;
 	}
 	return 0;
@@ -72,18 +88,22 @@ void GamePlay::Start() {
 
 	player_->Start();
 	
-	
 	for (Enemy* enemy : enemyTable_) {
 		enemy->Start();
 	}
 	for (Beam* beam : beamTable_) {
 		beam->Start();
 	}
+
+
+
 	// プレイヤーライフ
 	playerLife_ = 3;
 
 	// ゲームスコア
 	gameScore_ = 0;
+
+	Sound();
 
 }
 
@@ -111,13 +131,21 @@ void GamePlay::Shot() {
 }
 
 
+
+void GamePlay::Sound() {
+	voiceHandleBGM_ = audio_->PlayWave(soundDataHandleBGM_, true); 
+}
+
+
 void GamePlay::CollisionPlayerEnemy() {
 	for (Enemy* enemy : enemyTable_) {
 		if (enemy->GetFlag() == 1) {
 			float dx = abs(player_->GetX() - enemy->GetX());
+			float dy = abs(player_->GetY() - enemy->GetY());
 			float dz = abs(player_->GetZ() - enemy->GetZ());
-			if (dx < 1 && dz < 1) {
+			if (dx < 1 && dz < 1 && dy < 1) {
 				enemy->Hit();
+				audio_->PlayWave(soundDataHandlePlayerSE_); 
 				playerLife_ -= 1;
 			}
 		}
@@ -130,17 +158,21 @@ void GamePlay::CollisionBeamEnemy() {
 			if (beam->GetFlag() == 1) {
 				// 差を求める
 				float dx = abs(beam->GetX() - enemy->GetX());
+				float dy = abs(beam->GetY() - enemy->GetY());
 				float dz = abs(beam->GetZ() - enemy->GetZ());
 
-				if (dx < 1 && dz < 1) {
+
+				if (dx < 1 && dz < 1 && dy < 1 ) {
 					enemy->Hit();
 					beam->Hit();
+					audio_->PlayWave(soundDataHandleEnemySE_); 
 					gameScore_ += 1;
 				}
 			}
 		}
 	}
 }
+
 
 void GamePlay::Draw() {}
 
@@ -152,7 +184,6 @@ void GamePlay::Draw2DFar() {
 
 void GamePlay::Draw3D() {
 
-	stage_->Draw3D();
 	player_->Draw3D();
 	for (Beam* beam : beamTable_) {
 		beam->Draw3D();

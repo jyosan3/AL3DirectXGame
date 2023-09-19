@@ -12,10 +12,6 @@
 #include "DebugText.h"
 
 
-
-
-
-
 class Title {
 
 public:
@@ -26,8 +22,10 @@ public:
 	void Initialize();
 	int Update();
 	void Draw2DNear();
+	void Sound();
 
 	void Start();
+
 
 private:
 

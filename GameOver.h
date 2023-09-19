@@ -19,7 +19,9 @@ public:
 
 	void Initialize();
 	int Update();
+	void Sound();
 	void Draw2DNear();
+	void Start();
 
 private:
 	uint32_t textureHandleGameOver_ = 0;
@@ -27,6 +29,10 @@ private:
 
 	uint32_t textureHandleEnter_ = 0;
 	Sprite* spriteEnter_ = nullptr;
+
+	Audio* audio_ = nullptr;
+	uint32_t soundDataHandleBGM_ = 0;
+	uint32_t voiceHandleBGM_ = 0;
 
 	int gameTimer_ = 0;
 

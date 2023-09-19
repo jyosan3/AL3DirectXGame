@@ -21,10 +21,10 @@ void Title::Initialize() {
 	textureHandleEnter_ = TextureManager::Load("enter.png");
 	spriteEnter_ = Sprite::Create(textureHandleEnter_, {400, 500});
 
+	//サウンド
 	audio_ = Audio::GetInstance();
 	soundDataHandleBGM_ = audio_->LoadWave("Audio/Ring05.wav");
 
-	Start();
 
 }
 
@@ -32,20 +32,27 @@ int Title::Update() {
 
 	gameTimer_ ++;
 
-	if (input_->TriggerKey(DIK_RETURN))
-	{
+	if (input_->TriggerKey(DIK_RETURN)){
+
 		audio_->StopWave(voiceHandleBGM_);
+
 		return 0;
+
 	}
+
 	return 1;
+
 }
 
 void Title::Start() {
 
-	voiceHandleBGM_ = audio_->PlayWave(soundDataHandleBGM_, true);
+	Sound();
 
 }
 
+void Title::Sound() {
+	voiceHandleBGM_ = audio_->PlayWave(soundDataHandleBGM_, true); 
+}
 
 
 void Title::Draw2DNear() {
@@ -57,4 +64,5 @@ void Title::Draw2DNear() {
 
 
 }
+
 

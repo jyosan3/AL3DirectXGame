@@ -19,6 +19,12 @@ void GameOver::Initialize() {
 	textureHandleEnter_ = TextureManager::Load("enter.png");
 	spriteEnter_ = Sprite::Create(textureHandleEnter_, {400, 500});
 
+	//サウンド
+	audio_ = Audio::GetInstance();
+	soundDataHandleBGM_ = audio_->LoadWave("Audio/Ring09.wav");
+
+	Start();
+
 }
 
 int GameOver::Update() { 
@@ -27,9 +33,17 @@ int GameOver::Update() {
 
 	if (input_->TriggerKey(DIK_RETURN)) {
 
+		audio_->StopWave(voiceHandleBGM_);
+
 		return 1;
 	}
 	return 2; 
+}
+
+void GameOver::Sound() {
+
+	voiceHandleBGM_ = audio_->PlayWave(soundDataHandleBGM_, true); 
+
 }
 
 void GameOver::Draw2DNear() {
@@ -38,4 +52,8 @@ void GameOver::Draw2DNear() {
 	if (gameTimer_ % 40 >= 20) {
 		spriteEnter_->Draw();
 	}
+}
+
+void GameOver::Start() { 
+	Sound();
 }

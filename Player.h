@@ -26,6 +26,7 @@ public : // コンストラクタ
 	void Start();
 
 	float GetX() { return worldTransformPlayer_.translation_.x; }
+	float GetY() { return worldTransformPlayer_.translation_.y; }
 	float GetZ() { return worldTransformPlayer_.translation_.z; }
 
 private:

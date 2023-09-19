@@ -30,6 +30,7 @@ public: // コンストラクタ
 	void Start();
 
 	float GetX() { return worldTransformBeam_.translation_.x; }
+	float GetY() { return worldTransformBeam_.translation_.y; }
 	float GetZ() { return worldTransformBeam_.translation_.z; }
 	int GetFlag() { return beamFlag_; }
 

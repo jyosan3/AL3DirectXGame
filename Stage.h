@@ -38,9 +38,6 @@ private:
 	//カメラ
 	ViewProjection viewProjection_;
 
-	//地面
-	uint32_t textureHandleStage_ = 0;
-	Model* modelStage_ = nullptr;
-	WorldTransform worldTransformStage_;
+	
 
 };

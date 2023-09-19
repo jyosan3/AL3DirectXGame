@@ -70,6 +70,7 @@ void Beam::Born() {
 	if (input_->TriggerKey(DIK_SPACE) && beamFlag_ == 0 ) {
 		beamFlag_ = 1;
 		worldTransformBeam_.translation_.x = player_->GetX();
+		worldTransformBeam_.translation_.y = player_->GetY();
 		worldTransformBeam_.translation_.z = player_->GetZ();
 		worldTransformBeam_.scale_ = {0.3f, 0.3f, 0.3f};
 	}

@@ -16,22 +16,26 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	//各クラスの作成
-	
+	// 各クラスの作成
+
 	////カメラ初期化
 	viewProjection_.translation_.y = 1;
 	viewProjection_.translation_.z = -6;
 	viewProjection_.Initialize();
+
 	
 	gamePlay_ = new GamePlay();
 	gamePlay_->Initialize(viewProjection_);
 
 	title_ = new Title();
-	title_ -> Initialize();
+	title_->Initialize();
 
 	gameOver_ = new GameOver();
 	gameOver_->Initialize();
-}
+
+	
+}	
+
 
 void GameScene::Update() {
 
@@ -55,6 +59,12 @@ void GameScene::Update() {
 		switch (sceneMode_) {
 		case 0:
 			gamePlay_->Start();
+			break;
+		case 1:
+			title_->Start();
+			break;
+		case 2:
+			gameOver_->Start();
 			break;
 	    }
 

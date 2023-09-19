@@ -16,6 +16,7 @@
 #include"DebugText.h"
 
 
+
 class GamePlay {
 
 public:
@@ -33,6 +34,7 @@ public:
 	void CollisionBeamEnemy();
 	void Start();
 	void Shot();
+	void Sound();
 
 private:
 
@@ -41,6 +43,11 @@ private:
 	Beam* beamTable_[10] = {};
 	Enemy* enemyTable_[10] = {};
 
+	Audio* audio_ = nullptr;
+	uint32_t soundDataHandleBGM_ = 0;
+	uint32_t voiceHandleBGM_ = 0;
+	uint32_t soundDataHandleEnemySE_ = 0;
+	uint32_t soundDataHandlePlayerSE_ = 0;
 
 	ViewProjection viewProjection_;
 
@@ -50,5 +57,7 @@ private:
 	int gameScore_ = 0;
 	int playerLife_ = 3;
 	Input* input_ = nullptr;
+
+
 
 };

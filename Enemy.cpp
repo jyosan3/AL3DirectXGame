@@ -54,7 +54,6 @@ void Enemy::Move() {
 
 	if (enemyFlag_ == 1) {
 		worldTransformEnemy_.translation_.z -= 0.2f;
-		worldTransformEnemy_.rotation_.x -= 0.1f;
 		worldTransformEnemy_.translation_.x += xSpeed_;
 	
 		if (worldTransformEnemy_.translation_.x > 4) {
@@ -86,8 +85,11 @@ void Enemy::Born() {
 			}
 			// 乱数でX座標の指定
 			int x = rand() % 80;
+			int y = rand() % 40;
 			float x2 = (float)x / 10 - 4;
+			float y2 = (float)y / 10 - 2;
 			worldTransformEnemy_.translation_.x = x2;
+			worldTransformEnemy_.translation_.y = y2;
 			worldTransformEnemy_.translation_.z = 40;
 		}
 	}
